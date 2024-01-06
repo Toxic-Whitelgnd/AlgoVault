@@ -1,0 +1,22 @@
+.NavBarSection {
+    font-size: 1.07rem;
+  }
+  .navbar-toggler{
+    color: black!important;
+  }
+  .navbar
+  {
+    
+    z-index: 99;
+    background-color: rgb(44, 44, 44);
+    
+  }
+
+  .nav-link:hover{
+    color: red !important;
+  }
+  .active{
+    color: orange !important;
+    font-weight: 600;
+  }
+  
