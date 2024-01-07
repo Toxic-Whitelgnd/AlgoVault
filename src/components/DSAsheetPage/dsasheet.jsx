@@ -84,7 +84,7 @@ const Dsasheet = () => {
                                 <br></br>
                                 <p id='dsa-msg'>You don't have any DSA Sheet to Display </p>
                                 <br></br>
-                                <p id='dsa-msg'> Try adding new DSA sheet</p>
+                                <p id='dsa-msg'>Add dsa sheet here</p>
                             </div>
                         </>
                 }
