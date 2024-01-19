@@ -5,6 +5,8 @@ import img2 from "../../assets/image-3.png"
 import { MdMail, MdPassword } from "react-icons/md";
 import axios from 'axios';
 import Cookies from 'js-cookie';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Login = () => {
 	const [loggedIn, setLoggedIn] = useState(false);
@@ -33,16 +35,28 @@ const Login = () => {
 
 			console.log('Data sent successfully:', response.data);
 
-			var val = response.data
 
-			setLoggedIn(true);
 
-			// Store data in cookies
-			Cookies.set('email', val.email);
-			Cookies.set('loggedIn', true);
-			Cookies.set('userid',val.id);
+			if (response.data === 'Invalid user') {
+				toast.error("No user Found")
 
-			console.log('Data stored in cookies:', Cookies.get());
+			} else {
+
+
+				var val = response.data
+				setLoggedIn(true);
+
+				// Store data in cookies
+				Cookies.set('email', val.email);
+				Cookies.set('loggedIn', true);
+				Cookies.set('userid', val.id);
+
+				console.log('Data stored in cookies:', Cookies.get());
+				window.location.href = '/';
+				toast.success("Login succesful")
+			}
+
+
 
 
 			setFormData({
@@ -52,12 +66,13 @@ const Login = () => {
 			});
 			// Handle success or perform additional actions here
 
-			window.location.href = '/';
+
 
 
 		} catch (error) {
 			console.error('Error sending data:', error);
 			// Handle error or show a user-friendly message
+			toast.error("Backend error: " + error)
 		}
 	};
 
@@ -68,7 +83,7 @@ const Login = () => {
 				<div class="inner">
 					<img src={img1} alt="" class="image-4" />
 					<form action="" onSubmit={handleSubmit}>
-						<h3>Already User?</h3>
+						<h3 className='he'>Already User?</h3>
 						<div class="form-holder">
 							<span class="lnr lnr-envelope"><MdMail /></span>
 							<input type="text" name="email" value={formData.email} onChange={handleChange} class="form-control" placeholder="Mail" />
@@ -84,6 +99,7 @@ const Login = () => {
 					<img src={img2} alt="" class="image-3" />
 				</div>
 			</div>
+			<ToastContainer />
 		</div>
 
 	);

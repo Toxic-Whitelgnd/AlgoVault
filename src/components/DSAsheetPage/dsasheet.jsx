@@ -20,6 +20,17 @@ const Dsasheet = () => {
   "dsaLanguage": "string"
 }
      */
+
+// try to change the useEffect with useState
+    var userIdi;
+    const intializeValues = ()=>{
+        console.log(Cookies.get('ext_name'));
+        var isCooks = Cookies.get('ext_name');
+        console.log(Cookies.get('userid'));
+        userIdi = Cookies.get('userid');
+    }
+
+    var userId;
     useEffect(() => {
         console.log(Cookies.get('ext_name'));
         var isCooks = Cookies.get('ext_name');
@@ -44,6 +55,7 @@ const Dsasheet = () => {
             console.log(userid);
             // Call the fetchData function
             fetchData();
+            intializeValues();
         }
 
     }, []);
@@ -51,6 +63,7 @@ const Dsasheet = () => {
     function displaydata() {
         console.log("testing over here");
         console.log(data);
+        console.log(data.length);
     }
 
     return (
@@ -58,7 +71,7 @@ const Dsasheet = () => {
             <h1 className='d-flex justify-content-center'>DSA Sheet</h1>
             <div>
                 <div className="container-dsa">
-                    <a href="#" className="button3 type--C">
+                    <a href={`/#/adddsa/${Cookies.get('userid')}`} className="button3 type--C">
                         <div className="button__line"></div>
                         <div className="button__line"></div>
                         <span className="button__text">Add DSA question</span>
@@ -72,12 +85,40 @@ const Dsasheet = () => {
                 {
                     data.length > 0 ? <>
                         <div>
-                            <ul>
-                                {data.map(item => (
-                                    <li key={item.id}>{item.dsaName}</li>
-                                ))}
-                            </ul>
+                            <p>BAR FOR SEARCHING AND FILTER</p>
                         </div>
+
+                        <div>
+                        <div className='orderCont'>
+                        <ul class="responsive-table">
+                                    <li class="otable-header">
+                                        <div class="colo colo-1">Id</div>
+                                        <div class="colo colo-2">Name</div>
+                                        <div class="colo colo-5">Problem From</div>
+                                        <div class="colo colo-3">Level</div>
+                                        <div class="colo colo-4">Solution</div>
+                                    </li>
+
+
+                                    {data && data.map((val, idx) => {
+                                        return (
+                                            <>
+                                                <li class="otable-row">
+                                                    <div class="colo colo-1" data-label="Job Id">{val.id}</div>
+                                                    <div class="colo colo-2" data-label="Customer Name">{val.dsaName}</div>
+                                                    <div class="colo colo-5" data-label="Amount">{val.dsaFrom}</div>
+                                                    <div class="colo colo-3" data-label="Amount">{val.dsaLevel}</div>
+                                                    <div class="colo colo-4" data-label="Payment Status"><a href={`/#/viewsolution/${val.id}`}>solutio here</a></div>
+                                                </li>
+
+                                            </>
+                                        )
+                                    })}
+                                </ul>
+                                </div>
+
+                        </div>
+
                     </> :
                         <>
                             <div>
